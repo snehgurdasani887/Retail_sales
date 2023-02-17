@@ -14,13 +14,13 @@ public class Sales {
     @Column(name = "Id", nullable = false)
     private Long Id;
     @Column(name = "customerId")
-    private Long customerId;
+    private int customerId;
 
     @Column(name = "category")
     private String category;
 
     @Column(name = "amount")
-    private Long amount;
+    private int amount;
 
     @Column(name = "weekNo")
     private int weekNo;

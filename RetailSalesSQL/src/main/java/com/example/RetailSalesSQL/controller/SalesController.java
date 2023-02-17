@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.rmi.ServerException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/sales")
@@ -22,21 +23,21 @@ public class SalesController {
 
     private SalesRepository salesRepository;
 
-    @PostMapping("/addSales")
+    @PostMapping(value = "/addSales", produces = "application/json")
 
     @ResponseBody
-    public List<Sales> postDetails(@RequestBody List<Sales> s){
+    public List<Sales> postDetails(@RequestBody List<Sales> s) {
         return salesService.saveDetails(s);
     }
 
-    @GetMapping(value = "/{id}")
-    public String getPoints(@PathVariable("id") Long id, Model m){
-
-        long month_points = 0L;
-        long total_points = 0L;
-        m.addAttribute("customer_id", id);
-        m.addAttribute("month", month_points);
-        m.addAttribute("total_points", total_points);
-        return "result";
+    //    GET /rewards/{customer_id},
+//
+//    GET /rewards/ By time period
+//
+//    GET Add flavor
+    @GetMapping("/customer/{customerId}")
+    public Map<Integer, Integer> getCustomerSales(@PathVariable int customerId) {
+        return salesService.findSalesByCustomer(customerId);
     }
+
 }
