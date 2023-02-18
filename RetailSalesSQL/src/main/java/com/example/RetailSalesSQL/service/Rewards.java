@@ -1,10 +1,14 @@
 package com.example.RetailSalesSQL.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@AllArgsConstructor
+@Data
 public class Rewards {
-    public Rewards(int customerId, int totalPoints){
-        this.customerId = customerId;
-        this.totalPoints = totalPoints;
-    }
+
     public int customerId;
     public int totalPoints;
 }

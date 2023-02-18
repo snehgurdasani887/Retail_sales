@@ -25,7 +25,6 @@ public class SalesController {
     private SalesService salesService;
 
     @PostMapping(value = "/addSales", produces = "application/json")
-
     @ResponseBody
     public List<Sales> postDetails(@RequestBody List<Sales> s) {
         return salesService.saveDetails(s);

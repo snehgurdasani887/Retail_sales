@@ -20,7 +20,8 @@ public class SalesServiceImpl implements SalesService{
     @Override
     public List<Sales> findTransactionsByCustomer(int customerId) {
         List<Sales> customer_transactions = salesRepository.findAll();
-        customer_transactions = customer_transactions.stream().filter(item -> item.getWeekNo() < 13).collect(Collectors.toList());
+        customer_transactions = customer_transactions.stream().filter(item ->  item.getCustomerId()== customerId && item.getWeekNo()<13).collect(Collectors.toList());
+        //customer_transactions = customer_transactions.stream().filter(item -> item.getWeekNo() < 13).collect(Collectors.toList());
         return customer_transactions;
     }
 
@@ -54,14 +55,16 @@ public class SalesServiceImpl implements SalesService{
         }
         return total_points;
     }
+    public List<Sales> transactionsByMonth(List<Sales> customer_sales, int startWeek, int endWeek){
+        return customer_sales.stream().filter(item -> item.getWeekNo() < endWeek && item.getWeekNo() > startWeek).collect(Collectors.toList());
+    }
     @Override
     public String findPointsForCustomer(int customerId){
         List<Sales> customer_sales = salesRepository.findAll();
         customer_sales = customer_sales.stream().filter(item ->  item.getCustomerId()== customerId).collect(Collectors.toList());
-        List<Sales> customer_sales_month_1 = customer_sales.stream().filter(item -> item.getWeekNo() < 5 && item.getWeekNo() > 1).collect(Collectors.toList());
-        List<Sales> customer_sales_month_2 = customer_sales.stream().filter(item -> item.getWeekNo() < 9 && item.getWeekNo() > 4).collect(Collectors.toList());
-        List<Sales> customer_sales_month_3 = customer_sales.stream().filter(item -> item.getWeekNo() < 13 && item.getWeekNo() > 8).collect(Collectors.toList());
-        // logic - per month analysis - customer_id, total_points
+        List<Sales> customer_sales_month_1 = transactionsByMonth(customer_sales, 1, 5);
+        List<Sales> customer_sales_month_2 = transactionsByMonth(customer_sales, 4, 9);
+        List<Sales> customer_sales_month_3 = transactionsByMonth(customer_sales, 8, 13);
 
         Map<Integer, Integer> resultSales = new HashMap<Integer, Integer>();
         resultSales.put(1, totalPoints(customer_sales_month_1));
