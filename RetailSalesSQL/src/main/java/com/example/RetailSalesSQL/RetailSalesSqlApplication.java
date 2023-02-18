@@ -12,8 +12,4 @@ public class RetailSalesSqlApplication {
 		SpringApplication.run(RetailSalesSqlApplication.class, args);
 	}
 
-	@Bean
-	public ObjectMapper getObjectMapper() {
-		return new ObjectMapper();
-	}
 }

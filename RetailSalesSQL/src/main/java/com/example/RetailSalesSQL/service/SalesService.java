@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public interface SalesService {
-    Map<Integer, Integer> findSalesByCustomer(int customerId);
-
+    String findPointsForCustomer(int customerId);
 
     List<Sales> saveDetails(List<Sales> s);
 
+    List<Sales> findTransactionsByCustomer(int customerId);
+
+    List<Rewards> findRewardsPerCustomer();
 }
